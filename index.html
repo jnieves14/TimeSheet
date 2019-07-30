@@ -12,19 +12,49 @@
     
     <!-- JUMBOTRON -->
     <div class="jumbotron">
-      <h1 class="display-4"><center>Time Sheet</center></h1>
+      <h1 class="display-4"><center>Employee Data Management</center></h1>
+      <br><center>A Comprehensive Directory of Employee Billable Hours</center>
     </div>
-    <!-- FORM -->
+
+
+
+    
     <div class="container">
+      <!-- TABLE -->
+      <!-- TABLE -->
+    <div class="table">
         <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"> <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Current Employees</h3>
+              <h3 class="panel-title"> <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>Current Employees</h3>
+            </div>
+            <div class="parameterBody">
+              <table class="table table-condensed">
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Start Date</th>
+                <th>Months Worked</th>
+                <th>Monthly Rate ($)</th>
+                <th>Total Billed ($)</th>
+              </tr>
+       
+              </table>
+            </div>
+        </div>
+        <br>
+
+
+
+      <!-- FORM -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"> <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>Add Employee</h3>
             </div>
             <div class="parameterBody">
                 <form>
                     
-                    <div class="name">
-                        <label for="name">Name</label>
+                    <div class="name"><br>
+                        <label for="name">Emplyee Name</label>
                         <input type="text" class="form-control" id="searchTerm">
                     </div>
                   
@@ -47,17 +77,22 @@
                     <div class="months-worked">
                       <label for="months-worked">Months Worked</label>
                       <input type="password" class="form-control" id="endY">
-                    </div>
+                    </div><br>
 
                     <div class="monthly-rate">
                             <label for="monthly-rate">Monthly Rate</label>
                             <input type="password" class="form-control" id="endY">
-                    </div>
+                    </div><br>
 
                     <div class="total-billed">
                             <label for="total-billed">Total Billed</label>
                             <input type="password" class="form-control" id="endY">
                     </div>
+
+                    <br>
+                    <button type="button" class="btn btn-default btn-sm">
+                      <span class="" aria-hidden="true"></span> Submit
+                    </button>
 
                 </form>
             </div>
