@@ -8,7 +8,7 @@
 
      <!-- Firebase References -->
      <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-database.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-database.js"></script>
   </head>
 
   <body>
@@ -67,39 +67,39 @@
                     
                     <div class="name"><br>
                         <label for="name">Emplyee Name</label>
-                        <input type="text" class="form-control" id="searchTerm">
+                        <input type="text" class="form-control" id="name-input">
                     </div>
                   
                     <br>
                     
                     <div class="Role">
                         <label for="role">Role</label>
-                        <input type="text" class="form-control" id="number">
+                        <input type="text" class="form-control" id="role-input">
                     </div>
 
                     <br>
                     
                     <div class="start-date">
-                      <label for="start-date">Start Date</label>
-                      <input type="text" class="form-control" id="startY">
+                      <label for="start-date">Start Date (DD/MM/YY - ex: 01/01/89)</label>
+                      <input type="text" class="form-control" id="start-input">
                     </div>
 
                     <br>
                     
-                    <div class="months-worked">
+                    <!-- <div class="months-worked">
                       <label for="months-worked">Months Worked</label>
-                      <input type="text" class="form-control" id="endY">
-                    </div><br>
+                      <input type="text" class="form-control" id="mw-input">
+                    </div><br> -->
 
                     <div class="monthly-rate">
                             <label for="monthly-rate">Monthly Rate</label>
-                            <input type="text" class="form-control" id="endY">
+                            <input type="text" class="form-control" id="mr-input">
                     </div><br>
 
-                    <div class="total-billed">
+                    <!-- <div class="total-billed">
                             <label for="total-billed">Total Billed</label>
-                            <input type="text" class="form-control" id="endY">
-                    </div>
+                            <input type="text" class="form-control" id="tb-input">
+                    </div> -->
 
                     <br>
                     <button type="button" class="btn btn-default btn-sm">
@@ -127,65 +127,81 @@
 
   // Initialize Firebase
   var firebaseConfig = {
-    apiKey: "AIzaSyBbS7nbr2EflrJSxR3oA1FmuS6_5Hpo7Xs",
-    authDomain: "fir-intro-949fb.firebaseapp.com",
-    databaseURL: "https://fir-intro-949fb.firebaseio.com",
-    projectId: "fir-intro-949fb",
-    storageBucket: "",
-    messagingSenderId: "493944247",
-    appId: "1:493944247:web:4670b58e3e5cd258"
-  };
+   apiKey: "AIzaSyD7-dC-cv4AOk-dEoWMG-CnKzvvDwTZWSA",
+   authDomain: "fir-intro-76151.firebaseapp.com",
+   databaseURL: "https://fir-intro-76151.firebaseio.com",
+   projectId: "fir-intro-76151",
+   storageBucket: "",
+   messagingSenderId: "572928853975",
+   appId: "1:572928853975:web:4df98e7a4aeb5cf2"
+   };
 
-  firebase.initializeApp(firebaseconfig);
+   firebase.initializeApp(firebaseConfig);
 
   // Create a variable to reference the database.
   var database = firebase.database();
 
-  // Initial Values
-  var name = "";
-  var email = "";
-  var age = 0;
-  var comment = "";
+
 
   // Capture Button Click
   $("#add-user").on("click", function(event) {
     event.preventDefault();
 
+    // Initial Values
+  var name = $("#name-input").val().trim();;
+  var role = $("#role-input").val().trim();;
+  var startDate = $("#start-input").val().trim();;
+  var rate = $("#mr-input").val().trim();;
+
+  var newEmp = {
+    name: name,
+    role: role,
+    startDate: startDate,
+    rate: rate,
+  };
+
+  database.ref().push(newEmp);
+
+  console.log(newEmp.name);
+  console.log(newEmp.role);
+  console.log(newEmp.startDate);
+  console.log(newEmp.rate);
+
+
     // Grabbed values from text boxes
-    name = $("#name-input").val().trim();
-    email = $("#email-input").val().trim();
-    age = $("#age-input").val().trim();
-    comment = $("#comment-input").val().trim();
+    $("#name-input").val().trim();
+    $("#role-input").val().trim();
+    $("#start-input").val().trim();
+    $("#mr-input").val().trim();
 
-    // Code for handling the push - puts a new property key, the unique identifier as a property key and the value is the entire object that gets passed
-    database.ref().push({
-      name: name,
-      email: email,
-      age: age,
-      comment: comment,
-      dateAdded: firebase.database.ServerValue.TIMESTAMP
-    });
+    //prevents moving to a new page
+    return false;
+});
 
-  });
 
   // Firebase watcher .on("child_added" -- since root value is always changong -- child added, repsonding to a different event name, snapshot -- we're only
   //concerned about the data we just put in the database, not the entire database itself
   //ex: adding users to petition list or subscription list // ex: you are now a user in our system
-  database.ref().on("child_added", function(snapshot) {
+  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
     // storing the snapshot.val() in a variable for convenience
-    var sv = snapshot.val();
+    console.log(childSnapshot.val());
 
-    // Console.loging the last user's data
-    console.log(sv.name);
-    console.log(sv.email);
-    console.log(sv.age);
-    console.log(sv.comment);
+// Store everything into a variable.
+var name = childSnapshot.val().name;
+var role = childSnapshot.val().role;
+var startDate = childSnapshot.val().start;
+var rate = childSnapshot.val().rate;
 
-    // Change the HTML to reflect
-    $("#name-display").text(sv.name);
-    $("#email-display").text(sv.email);
-    $("#age-display").text(sv.age);
-    $("#comment-display").text(sv.comment);
+// Employee Info
+console.log(name);
+console.log(role);
+console.log(startDate);
+console.log(rate);
+
+//formatting the date
+var empStartPretty = moment.unix(empStart).format("MM/DD/YY");
+
+
 
     // Handle the errors
   }, function(errorObject) {
@@ -194,10 +210,10 @@
 
   dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
       // Change the HTML to reflect
-      $("#name-display").text(snapshot.val().name);
-      $("#email-display").text(snapshot.val().email);
-      $("#age-display").text(snapshot.val().age);
-      $("#comment-display").text(snapshot.val().comment);
+      $("#name-input").text(snapshot.val().name);
+      $("#role-input").text(snapshot.val().email);
+      $("#start-input").text(snapshot.val().age);
+      $("#mr-input").text(snapshot.val().comment);
     });
-    
+
 </script>
